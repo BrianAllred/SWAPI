@@ -33,23 +33,19 @@ namespace SWAPI
             return retValue;
         }
 
-        // Recursively retrieves all pages for a given data type (People, Starship, etc)
-        public async Task<IEnumerable<T>> GetAllAsync<T>(string type, int page = 1, IEnumerable<T> fullList = null)
+        // Retrieves all pages for a given data type (People, Starship, etc)
+        public async Task<IEnumerable<T>> GetAllAsync<T>(string type)
         {
+            var page = 1;
             var url = $"{type}/?page={page}";
             var entryList = await GetAsync<EntryList<T>>(url);
             var currentList = entryList.results;
 
-            if (entryList.hasNext)
+            while (entryList.hasNext)
             {
-                if (fullList is null)
-                {
-                    fullList = new List<T>();
-                }
-
-                var newEntry = await GetAllAsync<T>(type, ++page, fullList);
-                var newList = currentList.Concat(newEntry);
-                return newList;
+                url = $"{type}/?page={++page}";
+                entryList = await GetAsync<EntryList<T>>(url);
+                currentList = currentList.Concat(entryList.results);
             }
 
             return currentList;
