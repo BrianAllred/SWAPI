@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using SWAPI.Extensions;
 using SWAPI.Models;
 
 namespace SWAPI
@@ -43,8 +44,7 @@ namespace SWAPI
 
             while (entryList.hasNext)
             {
-                url = $"{type}/?page={++page}";
-                entryList = await GetAsync<EntryList<T>>(url);
+                entryList = await entryList.GetNext(this);
                 currentList = currentList.Concat(entryList.results);
             }
 
