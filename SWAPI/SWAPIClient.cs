@@ -55,7 +55,7 @@ namespace SWAPI
         public async Task<IEnumerable<T>> GetListAsync<T>(IEnumerable<string> list)
         {
             var results = new List<T>();
-            foreach(var url in list)
+            foreach (var url in list)
             {
                 var result = await GetAsync<T>(url);
                 results.Add(result);
@@ -70,7 +70,7 @@ namespace SWAPI
             return await GetAsync<Starship>(url);
         }
 
-        public async Task<IEnumerable<Starship>> GetAllStarshipAsync()
+        public async Task<IEnumerable<Starship>> GetAllStarshipsAsync()
         {
             var type = "starships";
             return await GetAllAsync<Starship>(type);
@@ -86,6 +86,51 @@ namespace SWAPI
         {
             var type = "people";
             return await GetAllAsync<People>(type);
+        }
+
+        public async Task<Film> GetFilmAsync(string id)
+        {
+            var url = $"films/{id}";
+            return await GetAsync<Film>(url);
+        }
+
+        public async Task<IEnumerable<Film>> GetAllFilmsAsync()
+        {
+            var type = "films";
+            return await GetAllAsync<Film>(type);
+        }
+        public async Task<Planet> GetPlanetAsync(string id)
+        {
+            var url = $"planets/{id}";
+            return await GetAsync<Planet>(url);
+        }
+
+        public async Task<IEnumerable<Planet>> GetAllPlanetsAsync()
+        {
+            var type = "planets";
+            return await GetAllAsync<Planet>(type);
+        }
+        public async Task<Species> GetSpeciesAsync(string id)
+        {
+            var url = $"species/{id}";
+            return await GetAsync<Species>(url);
+        }
+
+        public async Task<IEnumerable<Species>> GetAllSpeciesAsync()
+        {
+            var type = "species";
+            return await GetAllAsync<Species>(type);
+        }
+        public async Task<Vehicle> GetVehicleAsync(string id)
+        {
+            var url = $"vehicles/{id}";
+            return await GetAsync<Vehicle>(url);
+        }
+
+        public async Task<IEnumerable<Vehicle>> GetAllVehiclesAsync()
+        {
+            var type = "vehicles";
+            return await GetAllAsync<Vehicle>(type);
         }
     }
 }

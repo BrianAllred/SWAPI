@@ -18,14 +18,14 @@ namespace IntergalacticAirways
             if (int.TryParse(input, out int passengers))
             {
                 var swApiClient = new SWAPIClient();
-                var ships = swApiClient.GetAllStarshipAsync().Result;
+                var ships = swApiClient.GetAllStarshipsAsync().Result;
                 foreach (var ship in ships)
                 {
                     if (long.TryParse(ship.passengers, out long shipPassengers))
                     {
                         if (passengers <= shipPassengers)
                         {
-                            var pilots = ship.GetPilotAsync(swApiClient).Result;
+                            var pilots = ship.GetPilotsAsync(swApiClient).Result;
                             if (pilots.Count() == 0)
                             {
                                 Console.WriteLine($"{ship.name} - No pilots listed");
